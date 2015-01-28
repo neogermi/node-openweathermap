@@ -117,7 +117,12 @@
       });
       return res.on('end', function() {
         var json;
-        json = JSON.parse(buffer);
+        try {
+          json = JSON.parse(buffer);
+        } catch (exception) {
+          console.error("ERROR: Parsing JSON from openweathermap!");
+          json = {};
+        }
         if (json.list == null) {
           json.list = [];
         }
